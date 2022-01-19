@@ -13,21 +13,6 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +20,99 @@
   to {
     transform: rotate(360deg);
   }
+}
+/* My classes */
+.d-flex{
+  display: flex;
+}
+.column{
+  flex-direction: column;
+}
+.column-reverse{
+  flex-direction: column-reverse;
+}
+.f-wrap{
+  flex-wrap: wrap;
+}
+.flex1{
+  flex: 1;
+}
+.flex2{
+  flex: 2;
+}
+.just-center{
+  justify-content: center;
+}
+.just-between{
+  justify-content: space-between;
+}
+.just-evenly{
+  justify-content: space-evenly;
+}
+.just-start{
+  justify-content: start;
+}
+.just-end{
+  justify-content: end;
+}
+.ali-center{
+  align-items: center;
+}
+.ali-start{
+  align-content: flex-start;
+}
+.d-none{
+  display: none;
+}
+.bg-blue{
+  background-color: rgb(105, 186, 212);
+}
+.bg-rose{
+  background-color: rgb(184, 88, 88);
+}
+
+/* ******* Classes, Elements ******* */
+.sticky{
+  position: sticky;
+  top: 0;
+}
+button{
+  cursor: pointer;
+  padding: 5px 15px;
+  margin: 10px;
+}
+/* Padding, margin */
+.mb-10{
+  margin-bottom: 10px;
+}
+
+
+
+/* START PAGE */
+.character{
+  max-width: 250px;
+  min-height: 520px; 
+  padding: 10px;
+  margin:5px;
+  border: 1px solid blue;
+  border-radius:10px;
+  
+  background-color: rgb(149, 177, 124);
+}
+.character img{
+  width: 100%;
+}
+.character p{
+  margin: 5px;
+  font-size: 14px;
+}
+
+/* MAIN PAGE */
+.userSlot{
+  width: 80px;
+  height: 80px;
+  border: 2px solid red;
+  margin-top: 30px;
+  margin-left: 30px;
+  background-color: rgb(141, 173, 137);
 }
