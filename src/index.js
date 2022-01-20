@@ -7,16 +7,22 @@ import reportWebVitals from './reportWebVitals';
 // REDUX elements
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider} from "react-redux";
+import { createLogger } from 'redux-logger'
+
 
 // apsirasom reducerius is failu aplanko "/features"
-import playerReducer from "./features/player" 
+import playerReducer from "./features/player"
+import playerinventoryReducer from './features/playerinventory';
+import weaponReducer from './features/weapon'; 
 
 // REDUX elements
 const store = configureStore({      
   reducer: {
     player: playerReducer,
+    playerinventory: playerinventoryReducer,
+    weapon: weaponReducer,
     
-  }
+  }, middleware: [createLogger()]
 })
 ReactDOM.render(
   <React.StrictMode>

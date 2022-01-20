@@ -61,6 +61,9 @@
 .ali-start{
   align-content: flex-start;
 }
+.just-space{
+  justify-content: space-around;
+}
 .d-none{
   display: none;
 }
@@ -81,6 +84,13 @@ button{
   padding: 5px 15px;
   margin: 10px;
 }
+.pointer{
+  cursor: pointer;
+}
+h1, h2, h3, h4, p {
+  margin: 5px 0;
+}
+
 /* Padding, margin */
 .mb-10{
   margin-bottom: 10px;
@@ -93,7 +103,7 @@ button{
   max-width: 250px;
   min-height: 520px; 
   padding: 10px;
-  margin:5px;
+  margin:20px;
   border: 1px solid blue;
   border-radius:10px;
   
@@ -115,4 +125,18 @@ button{
   margin-top: 30px;
   margin-left: 30px;
   background-color: rgb(141, 173, 137);
+}
+/* TRADER PAGE */
+.itemCard{
+  width: 80px;
+  height: 140px;
+  padding: 4px;
+  margin: 4px;
+  border: 1px solid red;
+  border-radius: 3px;
+  background-color: burlywood;
+}
+.itemCard p{
+  font-size: 10px;
+  margin:2px 0;
 }

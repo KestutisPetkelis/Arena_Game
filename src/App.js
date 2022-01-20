@@ -10,7 +10,7 @@ import Arena from './pages/Arena';
 function App() {
   const divStyle = {
     // width: "100%",
-    // height: "100vh",
+    minHeight: "900px",
     borderRadius: "10px",
     border: "1px solid blue",
     margin: "10px",
@@ -112,16 +112,9 @@ function App() {
 ]
 
 
-
-
-
-
-
-
-
-
   return (
     <div className="App" style={divStyle}>
+      
       <BrowserRouter>
       <div className='d-flex just-evenly'>
           <h4><Link to="/"> Start </Link></h4> 

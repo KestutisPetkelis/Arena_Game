@@ -3,7 +3,7 @@ import {useSelector} from "react-redux";
 
 const Character = () => {
     const divStyle = {
-        width: "100%",
+        width: "80%",
         height: "100%",
         minHeight: "600px",
         borderRadius: "10px",
@@ -11,7 +11,7 @@ const Character = () => {
         margin: "10px",
         backgroundColor: "aliceblue",
         padding: "10px"
-      };
+    };
 
     const player = useSelector(state=>state.player.value)
     console.log(player)
@@ -19,7 +19,7 @@ const Character = () => {
         return (<div><h1>Please choose your Character!!!</h1></div>)
     }
     return (
-        <div style={divStyle} className='d-flex'>
+        <div style={divStyle} className='d-flex ali-center just-evenly'>
             
             <div  className='character flex1'>
                 <h4>{player.race}</h4>

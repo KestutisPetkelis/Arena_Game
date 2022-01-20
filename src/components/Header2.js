@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
+const Header2 = () => {
     const divStyle = {
         width: "100%",
         // height: "100vh",
@@ -14,15 +14,12 @@ const Header = () => {
 
     const nav= useNavigate()
 
-    
+  return (
+    <div style={divStyle} className='d-flex just-start'>
+        <button onClick={()=>nav("/main")}>Main</button>
+        <button onClick={()=>nav("/arena")}>Arena</button>
+    </div>
+)
+};
 
-
-    return (
-        <div style={divStyle} className='d-flex just-start'>
-            <button onClick={()=>nav("/trader")}>Shop</button>
-            <button onClick={()=>nav("/arena")}>Arena</button>
-        </div>
-    )
-}
-
-export default Header
+export default Header2;
