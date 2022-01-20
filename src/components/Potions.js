@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 function Potions({trader}) {
 
     const divStyle = {
@@ -16,14 +17,16 @@ function Potions({trader}) {
 
     const potions  = trader.potions
     console.log(potions, potions[0])
-
+    const buy=()=>{
+        console.log("Buy")
+    }
 
   return (
   <div>
       <div style={divStyle} className='d-flex f-wrap'>
             {potions.map((x,i) =>
                 <div key={i} className='itemCard'>
-                    <img src={x.image} alt="good drink" />
+                    <img onClick={()=>buy()}src={x.image} alt="good drink" className='pointer'/>
                     <p>Title: {x.title}</p>
                     {x.effect.health && <p>Effect (health): {x.effect.health}</p>}
                     {x.effect.energy && <p>Effect (energy): {x.effect.energy}</p>}

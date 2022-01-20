@@ -445,6 +445,7 @@ const Shop = () => {
         </div>
         {page && <Weapons trader={trader}/>}
         {!page && <Potions trader={trader}/>}
+        {page && <h3>Hover mouse over the weapon info to get info about effects</h3>}
     </div>
 )
 };

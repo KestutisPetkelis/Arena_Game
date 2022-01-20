@@ -14,6 +14,7 @@ import { createLogger } from 'redux-logger'
 import playerReducer from "./features/player"
 import playerinventoryReducer from './features/playerinventory';
 import weaponReducer from './features/weapon'; 
+import effectsReducer from './features/effects'; 
 
 // REDUX elements
 const store = configureStore({      
@@ -21,6 +22,7 @@ const store = configureStore({
     player: playerReducer,
     playerinventory: playerinventoryReducer,
     weapon: weaponReducer,
+    effects: effectsReducer,
     
   }, middleware: [createLogger()]
 })

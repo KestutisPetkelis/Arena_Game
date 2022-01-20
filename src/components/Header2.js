@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import {useSelector} from "react-redux";
 
 const Header2 = () => {
     const divStyle = {
@@ -13,11 +14,17 @@ const Header2 = () => {
     };
 
     const nav= useNavigate()
+    const money = useSelector(state=>state.player.value.gold)
 
   return (
-    <div style={divStyle} className='d-flex just-start'>
-        <button onClick={()=>nav("/main")}>Main</button>
-        <button onClick={()=>nav("/arena")}>Arena</button>
+    <div style={divStyle} className='d-flex just-between'>
+        <div className='d-flex just-start'>
+            <button onClick={()=>nav("/main")}>Main</button>
+            <button onClick={()=>nav("/arena")}>Arena</button>
+        </div>
+        <div className='d-flex ali-center'>
+            <p>Money: <b>{money}</b></p>
+        </div>
     </div>
 )
 };
