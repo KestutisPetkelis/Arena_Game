@@ -34,7 +34,7 @@ function Potions({trader}) {
         dispatch(getItemtoSlot(arr))
         dispatch(changeMoney(money-item.price))
         }
-        console.log("Buy", arg, item.img)
+        console.log("Buy", arg)
     }
 
   return (
