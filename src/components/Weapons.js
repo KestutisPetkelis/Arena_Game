@@ -1,6 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
+
+//  REDUX elements //
 import {useSelector} from "react-redux";
+import { useDispatch } from 'react-redux';
+import {getItemtoSlot} from '../features/playerinventory'
+import { changeMoney } from '../features/player';
 
 import EffectModal from '../modals/EffectModal';
 
@@ -21,11 +26,14 @@ const Weapons = ({trader}) => {
 
     const effects=useSelector(state=>state.effects.value) 
     const weapons  = trader.weapons
-    
+    const slots = useSelector(state=>state.playerinventory.value)
+    const money = useSelector(state=>state.player.value.gold)
+
+    const dispatch = useDispatch()
+
     const [microIndex, setMicroIndex] = useState(null) // state modalo valdymui
     const [modalInfo, setModalinfo] = useState([])  // state info perdavimui i modala
-    // console.log(effects)
-    // console.log(weapons,weapons[0])
+    
 
     const infoToModal=(arg)=>{
         const a = weapons.find(x=>x.image===arg)
@@ -37,9 +45,16 @@ const Weapons = ({trader}) => {
     }
 
 
-    const buy=()=>{
+    const buy=(arg)=>{
         
-        console.log("Buy")
+        const item = weapons.find(x=>x.image===arg) // perkamas itemas
+        if(money-item.price>=0){
+            // cia patikrinimas ar yra tusciu slotu ir daikto idejimas jei yra
+            const arr = slots.map((x, index) => (index === slots.findIndex(x => x === "")) ? item:x)
+            dispatch(getItemtoSlot(arr))
+            dispatch(changeMoney(money-item.price))
+        }
+        console.log(money, item.price)
     }
 
   return (
@@ -48,7 +63,7 @@ const Weapons = ({trader}) => {
         <div style={divStyle} className='d-flex f-wrap'>
             {weapons.map((x,index) =>
                 <div key={index} className='itemCard'>
-                    <img onClick={()=>buy()} src={x.image} alt="good weapon" className='pointer'/>
+                    <img onClick={()=>buy(x.image)} src={x.image} alt="good weapon" className='pointer'/>
                     <div onMouseOver={()=>{setMicroIndex(index); infoToModal(x.image)}} onMouseOut={()=>setMicroIndex(null)}>
                         <p>Energy per hit: {x.energyPerHit}</p>
                         <p>Max damage: {x.maxDamage}</p>

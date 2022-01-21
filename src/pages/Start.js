@@ -1,5 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
+
+//  REDUX elements //
 import { useDispatch } from 'react-redux';
 import {updatePlayer} from '../features/player'
 import {updatePlayerInventorySlots} from '../features/playerinventory'

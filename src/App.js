@@ -39,7 +39,7 @@ function App() {
         stamina: 4,
         strength: 3,
         inventorySlots: 5,
-        gold: 300
+        gold: 300000
     },
     {
         image: "https://images.blz-contentstack.com/v3/assets/blt3452e3b114fab0cd/bltdd9c3bc7630ea097/6165ee1b85a779070bc77f55/A62H0NRB056O1613677289519.png",

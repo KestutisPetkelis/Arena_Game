@@ -1,7 +1,7 @@
 import React from 'react'
 import Header2 from '../components/Header2'
 import Shop from '../components/Shop'
-import Inventory from '../components/Inventory'
+import Inventory2 from '../components/Inventory2'
 
 const Trader = () => {
     return (
@@ -10,7 +10,7 @@ const Trader = () => {
             Trader
             <div className='d-flex'>
                 <Shop/>
-                <Inventory />
+                <Inventory2 />
 
             </div>
         </div>

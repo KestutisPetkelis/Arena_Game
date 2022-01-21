@@ -2,9 +2,9 @@ import React from 'react'
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
 import {getItemtoSlot} from '../features/playerinventory'
+import { changeMoney } from '../features/player';
 
-
-const Inventory = () => {
+const Inventory2 = () => {
     const divStyle = {
         width: "100%",
         height: "100%",
@@ -19,14 +19,15 @@ const Inventory = () => {
     const dispatch = useDispatch()
     const slots = useSelector(state=>state.playerinventory.value)
     console.log(slots)
-  
+    const money = useSelector(state=>state.player.value.gold)
 
     const sell=(index)=>{
+        const price=slots.find((x,i)=>i===index).price
         // imam daiktus pgl. indeksa, nes gali buti daug vienodu daiktu
         const arr = [...slots.filter((x,i)=>i!==index),""]
         dispatch(getItemtoSlot(arr))
-
-        console.log("Sell",arr)
+        dispatch(changeMoney(money+price/2))
+        console.log("Sell",arr,price)
     }
 
     return (
@@ -37,7 +38,8 @@ const Inventory = () => {
                 {slots.map((x,i)=>
                 <div key={i} className='userSlot pointer'>
                     <img onClick={()=>sell(i)} src={x.image} alt="Empty slot"/>
-                    {x.maxDamage && <button>Equip </button>}
+                    {x.maxDamage && <p>Sell price: {x.price/2}</p>}
+                    {x.effect && <p>Sell price: {x.price/2}</p>}
                     
                 </div>
                 )}
@@ -46,4 +48,4 @@ const Inventory = () => {
     )
 }
 
-export default Inventory
+export default Inventory2
