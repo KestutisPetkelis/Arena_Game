@@ -62,13 +62,13 @@ const Inventory = () => {
           console.log("Add slots to inventory = ", addSlots)
           console.log("Remove slots from inventory = ", removeSlots)
 
-
+        dispatch(getItemtoSlot(arr))
         dispatch(changeSlotPlaces(addSlots-removeSlots))
         dispatch(updateWeapon(item))
-        dispatch(getItemtoSlot(arr))
+       
         console.log("Equip", item)
     }
-
+    console.log("SLOTS", slots)
     return (
         <div style={divStyle}>
            <h1>Inventory</h1>
@@ -77,7 +77,7 @@ const Inventory = () => {
                 {slots.map((x,i)=>
                 <div key={i} className='userSlot'>
                     <img  src={x.image} alt="Empty slot"/>
-                    {x.maxDamage && <button onClick={()=>equip(i)}>Equip </button>}
+                    {x.maxDamage && <button onClick={()=>equip(i)}>Equipt </button>}
                     
                 </div>
                 )}
