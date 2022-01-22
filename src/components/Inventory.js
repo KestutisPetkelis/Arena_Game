@@ -24,7 +24,7 @@ const Inventory = () => {
     const effects=useSelector(state=>state.effects.value)
 
     console.log(slots)
-    // const gun = useSelector(state=>state.weapon.value)
+    
 
     const equip=(index)=>{
         // imam daikta pgl. indeksa, nes gali buti daug vienodu daiktu
@@ -37,10 +37,11 @@ const Inventory = () => {
             arr = [...slots.filter((x,i)=>i!==index),""]
         }
 
-        //  apsidoroti papildomus slotus
+        //  ****** apsidoroti papildomus slotus ********//
+
         const add = item.effects.find(x => x.includes("i"))
         let remove
-        if(gun!==null){
+        if(gun!==null){      // kai pradzioje nera ginklo
              remove = gun.effects.find(x => x.includes("i"))
             
              console.log("LLLLLLLL remove", remove)
@@ -61,11 +62,15 @@ const Inventory = () => {
         }
           console.log("Add slots to inventory = ", addSlots)
           console.log("Remove slots from inventory = ", removeSlots)
+        if( slots.filter(x=>x==="").length-removeSlots>=0){
+            dispatch(getItemtoSlot(arr))
+            dispatch(changeSlotPlaces(addSlots-removeSlots))
+            dispatch(updateWeapon(item))
+        }else{
+            alert("You need freed additional slots first")
+        }
 
-        dispatch(getItemtoSlot(arr))
-        dispatch(changeSlotPlaces(addSlots-removeSlots))
-        dispatch(updateWeapon(item))
-       
+
         console.log("Equip", item)
     }
     console.log("SLOTS", slots)

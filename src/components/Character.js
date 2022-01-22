@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 
-import {getItemtoSlot} from '../features/playerinventory'
+import {changeSlotPlaces,getItemtoSlot} from '../features/playerinventory'
 import { disarmWeapon } from '../features/weapon';
 
 const Character = () => {
@@ -24,10 +24,36 @@ const Character = () => {
     const dispatch = useDispatch()
 
     const disarm=(arg)=>{
-        // const item = weapons.find(x=>x.image===arg)   
+        // const item = weapons.find(x=>x.image===arg) 
         const arr = slots.map((x, index) => (index === slots.findIndex(x => x === "")) ? arg:x)
-        dispatch(getItemtoSlot(arr))
-        dispatch(disarmWeapon())
+       
+        //    ***** papildomi slotai ********//
+        let remove
+        if(gun!==null){      // kai pradzioje nera ginklo
+             remove = gun.effects.find(x => x.includes("i"))
+            
+             console.log("AAAAAAAAAAAA remove", remove)
+        }
+        if(remove===undefined) remove="i0" // jei nera papildomu slotu, tai tada priskiriam "i0"    
+        let removeSlots=0
+        if (remove!==undefined||remove!==null){
+            console.log ("REMOVE", remove)
+            removeSlots = remove.slice(1)
+        }else{
+            removeSlots=0
+        }
+        console.log("Remove slots from inventory = ", removeSlots)
+        if( slots.filter(x=>x==="").length-removeSlots>0){
+
+            dispatch(getItemtoSlot(arr))
+            dispatch(changeSlotPlaces(0-removeSlots))
+            dispatch(disarmWeapon())
+
+        }else{
+            alert("You need freed additional slots and place for weapon first")
+        }
+
+       
 
         console.log("disarm")
     }
