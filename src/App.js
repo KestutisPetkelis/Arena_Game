@@ -33,8 +33,8 @@ function App() {
     {
         image: "https://images.blz-contentstack.com/v3/assets/blt3452e3b114fab0cd/bltad40c8b16ba5146c/6165db02ff59d903990f26dd/3BSJB91SIUBO1613677288515.png",
         race: "Dwarf",
-        damage: 5,
-        health: 90,
+        damage: 50,
+        health: 9000,
         energy: 30,
         stamina: 4,
         strength: 3,

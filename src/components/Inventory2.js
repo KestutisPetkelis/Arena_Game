@@ -22,12 +22,17 @@ const Inventory2 = () => {
     const money = useSelector(state=>state.player.value.gold)
 
     const sell=(index)=>{
-        const price=slots.find((x,i)=>i===index).price
+        let price=slots.find((x,i)=>i===index).price
+        const item= slots.find((x,i)=>i===index)
+        if(Object.keys(item).length===2){ 
+            price +=price
+        }
+            
         // imam daiktus pgl. indeksa, nes gali buti daug vienodu daiktu
         const arr = [...slots.filter((x,i)=>i!==index),""]
         dispatch(getItemtoSlot(arr))
         dispatch(changeMoney(money+price/2))
-        console.log("Sell",arr,price)
+        console.log("Sell",arr,price, item)
     }
 
     return (
@@ -40,6 +45,8 @@ const Inventory2 = () => {
                     <img onClick={()=>sell(i)} src={x.image} alt="Empty slot"/>
                     {x.maxDamage && <p>Sell price: {x.price/2}</p>}
                     {x.effect && <p>Sell price: {x.price/2}</p>}
+                    {(!(x.maxDamage || x.effect )&& x.price ) && <p>Sell price: {x.price}</p>}
+                    {x.price && <p></p>}
                     
                 </div>
                 )}
