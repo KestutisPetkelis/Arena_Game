@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import {useNavigate} from 'react-router-dom';
 
 import ArenaFinal from '../components/ArenaFinal'
 import ArenaPlayer from '../components/ArenaPlayer'
@@ -8,14 +9,29 @@ import Fight from '../components/Fight'
 import Drop from '../components/Drop'
 import Enemy from '../components/Enemy'
 
+import {useSelector} from "react-redux";
+import { useDispatch } from 'react-redux';
+import {getItemtoSlot} from '../features/playerinventory'
+
 
 
 
 const Arena = () => {
 
-    const [showAction, setShowAction] = useState(1)
-    const [showEnemy, setShowEnemy] = useState(true)
-    const [enemy, setEnemy]=useState()
+    const [showAction, setShowAction] = useState(1) // state action langu rodymui
+    const [showEnemy, setShowEnemy] = useState(true) // state enemy/drop langu rodymui
+    const [enemy, setEnemy]=useState() // state oponentu parinkimui
+
+    const dispatch = useDispatch()
+    const slots = useSelector(state=>state.playerinventory.value)
+    const player = useSelector(state=>state.player.value)
+    const gun = useSelector(state=>state.weapon.value)
+
+    const [userHP,setUserHP]= useState(player.health)
+    const [userEnergy, setUserEnergy] =useState(player.energy)
+    const [enemyHP, setEnemyHP] = useState(0)
+
+    const nav=useNavigate()
     
     const monsters = [
         {
@@ -322,13 +338,62 @@ const Arena = () => {
         const a = monsters[randomMaxMin(monsters.length-1,0)]
         console.log("Find Enemy", a)
         setEnemy(a)
+        setEnemyHP(a.health)
         setShowAction(2)
-        //setShowAction(3)
+        setShowEnemy(true)
     }
 
+    const attack = () =>{
+        console.log("Attack!")
+        let enemyhp=enemyHP-player.damage
+        if (enemyhp <=0){
+            enemyhp=0
+            setShowAction(3)
+            setShowEnemy(false)
+        }
+        setEnemyHP(enemyhp)
+
+        let userhp=userHP-enemy.maxDamage
+        if (userhp <=0){
+            alert("You have been defeated...")
+            nav("/")
+        }
 
 
+        setUserHP(userHP-enemy.maxDamage)
 
+    }
+
+    const drink=(arg,index)=>{
+        let addHP = 0
+        let addEnergy = 0
+        if(Object.keys(arg)[0] = "health"){
+            addHP=Object.values(arg)[0]
+            console.log("HP",addHP)
+            if(userHP + addHP>player.health){
+                setUserHP(player.health)
+            }else{
+                setUserHP(userHP + addHP)
+            }
+            
+        }
+        if(Object.keys(arg)[0] = "energy"){
+            addEnergy=Object.values(arg)[0]
+            console.log("Energy",addEnergy)
+            if(userEnergy + addEnergy>player.energy){
+                setUserEnergy(player.energy)
+            }else{
+                setUserEnergy(userEnergy + addEnergy)
+            }
+        }
+        // pasalinam buteliuka is inventoriaus
+        // imam daiktus pgl. indeksa, nes gali buti daug vienodu daiktu
+        const arr = [...slots.filter((x,i)=>i!==index),""]
+        dispatch(getItemtoSlot(arr))
+        
+         console.log("Drink potion",arg)
+
+    }
 
 
 
@@ -339,15 +404,15 @@ const Arena = () => {
              <h3>Fight or die!</h3>
             <div className='d-flex just-around'>
                 <div className='flex1'>
-                    <ArenaPlayer/>
+                    <ArenaPlayer userHP={userHP} userEnergy={userEnergy} drink={drink}/>
                 </div>
                 <div className='flex1'>
                     {showAction===1 &&<FindEnemy findEnemy={findEnemy}/>}
-                    {showAction===2 &&<Fight/>}
-                    {showAction===3 &&<ArenaFinal findEnemy={findEnemy}/>}
+                    {showAction===2 &&<Fight attack={attack}/>}
+                    {showAction===3 &&<ArenaFinal setShowAction={setShowAction}/>}
                 </div>
                 <div className='flex2'>
-                    {showEnemy && <Enemy enemy={enemy}/>}
+                    {showEnemy && <Enemy enemy={enemy} enemyHP={enemyHP}/>}
                     {!showEnemy && <Drop/>}
                 </div>
 

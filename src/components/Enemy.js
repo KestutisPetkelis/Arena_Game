@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Enemy = ({enemy}) => {
+const Enemy = ({enemy, enemyHP}) => {
     const divStyle = {
         width: "100%",
         height: "95%",
@@ -24,8 +24,10 @@ const Enemy = ({enemy}) => {
             <p>Max Damage: <b>{enemy.maxDamage}</b> </p>
             <p>Basic health: <b>{enemy.health}</b> </p>
             <div >
-                <div className='slider2'></div> 
-                <span>HP :</span>
+                <div className='slider2'>
+                <div className='innersliderHP' style={{width: `${enemyHP/enemy.health*360}px` }}></div>   
+                </div> 
+                <span>HP :<b>{enemyHP}</b></span>
             </div>
             </div>
         }

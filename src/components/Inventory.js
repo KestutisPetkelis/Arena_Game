@@ -83,7 +83,7 @@ const Inventory = () => {
                 <div key={i} className='userSlot'>
                     <img  src={x.image} alt="Empty slot"/>
                     {x.maxDamage && <button onClick={()=>equip(i)}>Equipt </button>}
-                    
+                    {x.effect && <p>{x.title}</p>}
                 </div>
                 )}
            </div> 

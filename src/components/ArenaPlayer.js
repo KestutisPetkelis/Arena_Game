@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-const ArenaPlayer = () => {
+const ArenaPlayer = ({userHP, userEnergy, drink}) => {
     const divStyle = {
         width: "90%",
         minWidth: "700px",
@@ -19,9 +19,7 @@ const ArenaPlayer = () => {
     const effects=useSelector(state=>state.effects.value)
     const slots = useSelector(state=>state.playerinventory.value)
 
-    const drink=()=>{
-        console.log("Drink potion")
-    }
+    
 
 
 
@@ -75,17 +73,25 @@ const ArenaPlayer = () => {
                 </div>
             </div>
             <div className='d-flex'>
-                <div className='slider'></div> <span>HP :</span>
+                <div className='slider'>
+                    <div className='innersliderHP' style={{width: `${userHP/player.health*400}px` }}></div>    
+                </div> <span>HP : <b>{userHP}</b></span>
             </div>
             <div className='d-flex'>
-                <div className='slider'></div><span>Energy: </span>
+                <div className='slider'>
+                    <div className='innersliderEnergy' style={{width: `${userHP/player.health*400}px` }}></div></div><span>Energy: <b>{userEnergy}</b></span>
             </div>
             <h4>Slots: </h4>
             <div className='d-flex f-wrap'> 
                 {slots.map((x,i)=>
                 <div key={i} className='arenaSlot '>
                     <img src={x.image} alt="Empty slot"/>
-                    {x.effect && <button onClick={()=>drink()}>Drink</button>}
+                    {x.effect && 
+                        <div>
+                            <p>{x.title}</p>
+                            <button onClick={()=>drink(x.effect,i)}>Drink</button>
+                        </div>
+                    }
                     
                 </div>
                 )}
