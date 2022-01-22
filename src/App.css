@@ -55,11 +55,17 @@
 .just-end{
   justify-content: end;
 }
+.just-around{
+  justify-content: space-around;
+}
 .ali-center{
   align-items: center;
 }
 .ali-start{
   align-content: flex-start;
+}
+.ali-around{
+  align-content: space-around;
 }
 .just-space{
   justify-content: space-around;
@@ -88,15 +94,20 @@ button{
   cursor: pointer;
 }
 h1, h2, h3, h4, p {
-  margin: 5px 0;
+  margin: 5px 2px;
 }
 
 /* Padding, margin */
 .mb-10{
   margin-bottom: 10px;
 }
-
-
+.m-2{
+  margin: 2px;
+}
+.mh-50{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 
 /* START PAGE */
 .character{
@@ -150,4 +161,58 @@ h1, h2, h3, h4, p {
 .itemCard p{
   font-size: 10px;
   margin:2px 0;
+}
+/* ARENA */
+.arenaImg{
+  width: 40% !important;
+}
+.arenaSlot, .arenaSlotWeapon{
+  width: 70px;
+  min-height: 60px;
+  border: 2px solid red;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-left: 5px;
+  padding: 6px;
+  background-color: rgb(141, 173, 137);
+}
+.arenaSlotWeapon{
+  max-height: 65px;
+}
+
+.arenaSlot button{
+  margin: 5px;
+  padding: 2px 10px;
+}
+.character2{
+  max-width: 600px;
+  min-height: 290px; 
+  padding: 10px;
+  margin:20px;
+  border: 1px solid blue;
+  border-radius:10px;
+  background-color: rgb(149, 177, 124);
+}
+.font12{
+  font-size: 12px;
+  
+}
+.slider{
+  width: 400px;
+  height: 12px;
+  border: 1px solid brown;
+  margin: 5px;
+}
+.advancersContainer{
+  max-height: 80px;
+}
+.slider2{
+  min-width: 360px;
+  height: 12px;
+  border: 1px solid brown;
+  margin: 5px;
+  margin-top: 20px;
+}
+.coloseum{
+  width: 90%;
 }
