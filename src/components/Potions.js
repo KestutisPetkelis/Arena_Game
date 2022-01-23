@@ -1,4 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
+
+import MoneyModal from '../modals/MoneyModal';
 
 //  REDUX elements //
 import {useSelector} from "react-redux";
@@ -24,6 +27,8 @@ function Potions({trader}) {
     const slots = useSelector(state=>state.playerinventory.value)
     const money = useSelector(state=>state.player.value.gold)
 
+    const [noMoneyModal, setNoMoneyModal] = useState(false)
+
     const potions  = trader.potions
     console.log(potions)
     const buy=(arg)=>{
@@ -33,6 +38,8 @@ function Potions({trader}) {
         const arr = slots.map((x, index) => (index === slots.findIndex(x => x === "")) ? item:x)
         dispatch(getItemtoSlot(arr))
         dispatch(changeMoney(money-item.price))
+        }else{
+            setNoMoneyModal(true)
         }
         console.log("Buy", arg)
     }
@@ -53,6 +60,7 @@ function Potions({trader}) {
           
           
             )}
+            {noMoneyModal && <MoneyModal setNoMoneyModal={setNoMoneyModal}/>}
         </div>
   </div>
   );

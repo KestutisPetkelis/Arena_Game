@@ -8,6 +8,7 @@ import {getItemtoSlot} from '../features/playerinventory'
 import { changeMoney } from '../features/player';
 
 import EffectModal from '../modals/EffectModal';
+import MoneyModal from '../modals/MoneyModal';
 
 
 const Weapons = ({trader}) => {
@@ -31,9 +32,10 @@ const Weapons = ({trader}) => {
 
     const dispatch = useDispatch()
 
-    const [microIndex, setMicroIndex] = useState(null) // state modalo valdymui
-    const [modalInfo, setModalinfo] = useState([])  // state info perdavimui i modala
+    const [microIndex, setMicroIndex] = useState(null) // state efektu modalo valdymui
+    const [modalInfo, setModalinfo] = useState([])  // state info perdavimui i efektu modala
     
+    const [noMoneyModal, setNoMoneyModal] = useState(false)
 
     const infoToModal=(arg)=>{
         const a = weapons.find(x=>x.image===arg)
@@ -53,6 +55,8 @@ const Weapons = ({trader}) => {
             const arr = slots.map((x, index) => (index === slots.findIndex(x => x === "")) ? item:x)
             dispatch(getItemtoSlot(arr))
             dispatch(changeMoney(money-item.price))
+        }else{
+            setNoMoneyModal(true)
         }
         console.log(money, item.price)
     }
@@ -63,18 +67,19 @@ const Weapons = ({trader}) => {
         <div style={divStyle} className='d-flex f-wrap'>
             {weapons.map((x,index) =>
                 <div key={index} className='itemCard'>
-                    <img onClick={()=>buy(x.image)} src={x.image} alt="good weapon" className='pointer'/>
-                    <div onMouseOver={()=>{setMicroIndex(index); infoToModal(x.image)}} onMouseOut={()=>setMicroIndex(null)}>
+                    <img onClick={()=>buy(x.image)} src={x.image} alt="good weapon" className='pointer' onMouseOver={()=>{setMicroIndex(index); infoToModal(x.image)}} onMouseOut={()=>setMicroIndex(null)}/>
+                    <div >
                         <p>Energy per hit: {x.energyPerHit}</p>
                         <p>Max damage: {x.maxDamage}</p>
                         <p>Effects: {x.effects.length}</p>
-                        <p>Price: <b>{x.price}</b></p>
+                        <p >Price: <b>{x.price}</b></p>
                     </div>
                     {microIndex === index ? <EffectModal modalInfo={modalInfo}/> : null}
                 </div>
           
           
             )}
+            {noMoneyModal && <MoneyModal setNoMoneyModal={setNoMoneyModal}/>}
         </div>
   </div>
   

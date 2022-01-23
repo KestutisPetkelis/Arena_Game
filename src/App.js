@@ -1,5 +1,7 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom'
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
+
 
 import './App.css';
 import Start from './pages/Start';
@@ -32,7 +34,7 @@ function App() {
     },
     {
         image: "https://images.blz-contentstack.com/v3/assets/blt3452e3b114fab0cd/bltad40c8b16ba5146c/6165db02ff59d903990f26dd/3BSJB91SIUBO1613677288515.png",
-        race: "Dwarf",
+        race: "Dwarf - test character",
         damage: 50,
         health: 9000,
         energy: 3000,
@@ -116,12 +118,12 @@ function App() {
     <div className="App" style={divStyle}>
       
       <BrowserRouter>
-      <div className='d-flex just-evenly'>
+      {/* <div className='d-flex just-evenly'>
           <h4><Link to="/"> Start </Link></h4> 
           <h4><Link to="/main"> Main </Link></h4>
           <h4><Link to="/trader"> Trader </Link></h4>
           <h4><Link to="/arena"> Arena </Link></h4>
-        </div>
+        </div> */}
       <Routes>
         <Route path="/" element={<Start characters={characters}/>}></Route>
         <Route path="/main" element={<Main/>}></Route>

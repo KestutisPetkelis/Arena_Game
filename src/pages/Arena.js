@@ -649,8 +649,8 @@ const Arena = () => {
        
 
         // renderinam duomenis i state
-        setUserHP(player.health)        // atstatom  statsus po musio
-        setUserEnergy(player.energy)
+        setUserHP(player.health+advance.health)        // atstatom  statsus po musio
+        setUserEnergy(player.energy+advance.energy)
         setEnemy(a)
         setDrop([...arr])
         setEnemyHP(a.health)
