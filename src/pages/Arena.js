@@ -12,6 +12,7 @@ import Enemy from '../components/Enemy'
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
 import {getItemtoSlot} from '../features/playerinventory'
+import {disarmWeapon} from '../features/weapon'
 
 
 
@@ -21,15 +22,19 @@ const Arena = () => {
     const [showAction, setShowAction] = useState(1) // state action langu rodymui
     const [showEnemy, setShowEnemy] = useState(true) // state enemy/drop langu rodymui
     const [enemy, setEnemy]=useState() // state oponentu parinkimui
-    const [drop, setDrop] = useState([])
+    const [drop, setDrop] = useState([]) // state dropo atvaizdavimui
+
+    const [userDmg,setUserDmg]=useState()
+    const [enemyDmg, setEnemyDmg] = useState()
 
     const dispatch = useDispatch()
     const slots = useSelector(state=>state.playerinventory.value)
     const player = useSelector(state=>state.player.value)
     const gun = useSelector(state=>state.weapon.value)
+    const advance = useSelector(state =>state.advancer.value)
 
-    const [userHP,setUserHP]= useState(player.health)
-    const [userEnergy, setUserEnergy] =useState(player.energy)
+    const [userHP,setUserHP]= useState(player.health+advance.health)
+    const [userEnergy, setUserEnergy] =useState(player.energy+advance.energy)
     const [enemyHP, setEnemyHP] = useState(0)
 
     const nav=useNavigate()
@@ -634,7 +639,7 @@ const Arena = () => {
     const findEnemy = () =>{            // randam atsitiktini priesa
         
         const a = monsters[randomMaxMin(monsters.length-1,0)]
-            // *** dropo apdojimas 
+            // *** dropo apdojimas, nes priesas jau isrinktas
         const dropNumber =randomMaxMin(a.maxItemsDrop,0)
         const arr=[]
         for(let i=0; i<dropNumber; i++){
@@ -643,7 +648,7 @@ const Arena = () => {
         console.log("Find Enemy", a, "random drop number", dropNumber, arr)
        
 
-        // rederinam duomenis i state
+        // renderinam duomenis i state
         setUserHP(player.health)        // atstatom  statsus po musio
         setUserEnergy(player.energy)
         setEnemy(a)
@@ -656,24 +661,59 @@ const Arena = () => {
     const attack = () =>{           // atakos funkcija
         console.log("Attack!")
 
-        let enemyhp=enemyHP-player.damage
-        if (enemyhp <=0){
-            enemyhp=0
-            setShowAction(3)
-            setShowEnemy(false)
-        }
-        setEnemyHP(enemyhp)
+        // ***** USER ATTACK *******//
+       
+            let usermaxdmg=0        // jei nera ginklo
+            let userenerghit=0
+            if(gun!==null){         // jei ginklas yra
+                usermaxdmg=gun.maxDamage+advance.damage
+                userenerghit=gun.energyPerHit
+            }
 
-        let userhp=userHP-enemy.maxDamage
+            // critical apdorojimas
+            const crit = (randomMaxMin(99,1)<player.strength+advance.strength) ? 3 : 1
+            console.log ("critical", crit,player.strength+advance.strength)
+
+         if(userEnergy>userenerghit){    
+            let usrdmg = (player.damage+randomMaxMin(usermaxdmg,0))*crit
+            let enemyhp=enemyHP-usrdmg
+            console.log(usrdmg)
+            setUserDmg(usrdmg)
+           
+            if (enemyhp <=0){
+                enemyhp=0
+                setShowAction(3)
+                setShowEnemy(false)
+            }
+            setEnemyHP(enemyhp)
+        } else {
+            alert("You have not enough energy to hit enemy")
+        }
+
+        // ******* ENEMY ATTACK ******* //
+        let enmdmg=randomMaxMin(enemy.maxDamage, 0)
+        let userhp=userHP- enmdmg
+        setEnemyDmg(enmdmg)
         if (userhp <=0){
             alert("You have been defeated...")
+            dispatch(disarmWeapon()) // kad nerodytu uzdeto ginklo, kai renkame chara is naujo
             nav("/")
         }
 
+        //** apdorojam STAMINA */
+        let finalenergy=userEnergy-userenerghit+player.stamina+advance.stamina
+        if(userEnergy<userenerghit){
+            finalenergy=userEnergy+player.stamina+advance.stamina
+        }
+        if (finalenergy>player.energy+advance.energy){
+            finalenergy=player.energy+advance.energy
+        }
 
-        setUserHP(userHP-enemy.maxDamage)
+        setUserEnergy(finalenergy)
+        setUserHP(userhp)
 
     }
+
 
     const drink=(arg,index)=>{  // buteliuku gerimo funkcija
         let addHP = 0
@@ -710,7 +750,7 @@ const Arena = () => {
         
         const item = drop.find((x,index)=>index===arg)
         console.log("Get drop item",arg, item)
-        const arrDrop=[...drop].filter(x=>x!==item)
+        const arrDrop=[...drop].filter((x,i)=>i!==arg)
         console.log("form new array", arrDrop)
         // cia patikrinimas ar yra tusciu slotu ir daikto idejimas jei yra
         const arr = slots.map((x, index) => (index === slots.findIndex(x => x === "")) ? item:x)
@@ -734,7 +774,7 @@ const Arena = () => {
                 </div>
                 <div className='flex1'>
                     {showAction===1 &&<FindEnemy findEnemy={findEnemy}/>}
-                    {showAction===2 &&<Fight attack={attack}/>}
+                    {showAction===2 &&<Fight attack={attack} userDmg={userDmg} enemyDmg={enemyDmg}/>}
                     {showAction===3 &&<ArenaFinal setShowAction={setShowAction}/>}
                 </div>
                 <div className='flex2'>

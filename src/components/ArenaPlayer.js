@@ -18,6 +18,7 @@ const ArenaPlayer = ({userHP, userEnergy, drink}) => {
     const gun = useSelector(state=>state.weapon.value)
     const effects=useSelector(state=>state.effects.value)
     const slots = useSelector(state=>state.playerinventory.value)
+    const advance = useSelector(state =>state.advancer.value)
 
     
 
@@ -74,12 +75,12 @@ const ArenaPlayer = ({userHP, userEnergy, drink}) => {
             </div>
             <div className='d-flex'>
                 <div className='slider'>
-                    <div className='innersliderHP' style={{width: `${userHP/player.health*400}px` }}></div>    
+                    <div className='innersliderHP' style={{width: `${userHP/(player.health+advance.health)*400}px` }}></div>    
                 </div> <span>HP : <b>{userHP}</b></span>
             </div>
             <div className='d-flex'>
                 <div className='slider'>
-                    <div className='innersliderEnergy' style={{width: `${userHP/player.health*400}px` }}></div></div><span>Energy: <b>{userEnergy}</b></span>
+                    <div className='innersliderEnergy' style={{width: `${userEnergy/(player.energy+advance.energy)*400}px` }}></div></div><span>Energy: <b>{userEnergy}</b></span>
             </div>
             <h4>Slots: </h4>
             <div className='d-flex f-wrap'> 

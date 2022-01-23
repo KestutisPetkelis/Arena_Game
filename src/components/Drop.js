@@ -19,7 +19,7 @@ const Drop = ({drop, enemy, getItem}) => {
     <div style={divStyle}>
         <h3 className='mh-50'>You WON!!!</h3>
         <h4>Some cookies from opponent? <br></br>
-             {enemy.name} max drop items {enemy.maxItemsDrop}
+             {enemy.name} can drop maximum {enemy.maxItemsDrop} item(s)
         </h4>
         {drop.length===0 && <h4>No any drop is laying on the ground :)</h4>}
         {drop.length>0 &&

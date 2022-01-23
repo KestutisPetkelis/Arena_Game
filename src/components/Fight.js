@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Fight = ({attack}) => {
+const Fight = ({attack, userDmg,enemyDmg}) => {
     const divStyle = {
         maxWidth: "350px",
         height: "95%",
@@ -14,9 +14,9 @@ const Fight = ({attack}) => {
   return (
       
     <div style={divStyle} className='d-flex column ali-around just-center'>
-        <span className='mh-50'>You strike: </span>
+        <span className='mh-50'>You strike: {userDmg} </span>
         <button onClick={()=>attack()}><h3>Attack!</h3></button>
-        <span className='mh-50'>Enemy strikes: </span>
+        <span className='mh-50'>Enemy strikes: {enemyDmg}</span>
     </div>
     );
 };

@@ -33,6 +33,7 @@ export const playerinventorySlice = createSlice({
              console.log("Slotu pokytis",changeSlots, state.value) 
 
         },
+        
     }
 })
 

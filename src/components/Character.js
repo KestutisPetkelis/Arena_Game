@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {changeSlotPlaces,getItemtoSlot} from '../features/playerinventory'
 import { disarmWeapon } from '../features/weapon';
+import { updateAdvancers } from '../features/advancer';
 
 const Character = () => {
     const divStyle = {
@@ -44,10 +45,19 @@ const Character = () => {
         }
         console.log("Remove slots from inventory = ", removeSlots)
         if( slots.filter(x=>x==="").length-removeSlots>0){
+        
+        const advancWeapon ={
+            damage: 0,
+            strength: 0,
+            stamina: 0,
+            health: 0,
+            energy: 0,
+        }
 
             dispatch(getItemtoSlot(arr))
             dispatch(changeSlotPlaces(0-removeSlots))
             dispatch(disarmWeapon())
+            dispatch(updateAdvancers(advancWeapon))
 
         }else{
             alert("You need freed additional slots and place for weapon first")

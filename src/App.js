@@ -35,7 +35,7 @@ function App() {
         race: "Dwarf",
         damage: 50,
         health: 9000,
-        energy: 30,
+        energy: 3000,
         stamina: 4,
         strength: 3,
         inventorySlots: 5,
