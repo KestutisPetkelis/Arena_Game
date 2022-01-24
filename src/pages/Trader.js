@@ -7,7 +7,7 @@ const Trader = () => {
     return (
         <div>
             <Header2/>
-            Trader
+            
             <div className='d-flex'>
                 <Shop/>
                 <Inventory2 />

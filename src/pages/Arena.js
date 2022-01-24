@@ -656,6 +656,9 @@ const Arena = () => {
         setEnemyHP(a.health)
         setShowAction(2)
         setShowEnemy(true)
+
+        setUserDmg(' not yet...')
+        setEnemyDmg (' not yet...')
     }
 
     const attack = () =>{           // atakos funkcija

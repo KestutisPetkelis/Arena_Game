@@ -13,7 +13,7 @@ const Inventory2 = () => {
         border: "1px solid blue",
         margin: "10px -30px 10px 10px",
         backgroundColor: "aliceblue",
-        padding: "10px"
+        padding: "15px"
     };
     
     const dispatch = useDispatch()
