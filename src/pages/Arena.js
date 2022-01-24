@@ -747,15 +747,16 @@ const Arena = () => {
     }
 
     const getItem=(arg)=>{  //*** Pasiimam daikta is dropo */
-        
-        const item = drop.find((x,index)=>index===arg)
-        console.log("Get drop item",arg, item)
-        const arrDrop=[...drop].filter((x,i)=>i!==arg)
-        console.log("form new array", arrDrop)
-        // cia patikrinimas ar yra tusciu slotu ir daikto idejimas jei yra
-        const arr = slots.map((x, index) => (index === slots.findIndex(x => x === "")) ? item:x)
-        dispatch(getItemtoSlot(arr))
-        setDrop([...arrDrop])
+        if(slots.find(x=>x==="")!==undefined){
+            const item = drop.find((x,index)=>index===arg)
+            console.log("Get drop item",arg, item)
+            const arrDrop=[...drop].filter((x,i)=>i!==arg)
+            console.log("form new array", arrDrop)
+            // cia patikrinimas ar yra tusciu slotu ir daikto idejimas jei yra
+            const arr = slots.map((x, index) => (index === slots.findIndex(x => x === "")) ? item:x)
+            dispatch(getItemtoSlot(arr))
+            setDrop([...arrDrop])
+        }
     }
 
 

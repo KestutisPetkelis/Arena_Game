@@ -14,9 +14,9 @@ const Fight = ({attack, userDmg,enemyDmg}) => {
   return (
       
     <div style={divStyle} className='d-flex column ali-around just-center'>
-        <span className='mh-50'>You strike: {userDmg} </span>
+        <span className='mh-50'>You strike: <b><i>{userDmg}</i></b> </span>
         <button onClick={()=>attack()}><h3>Attack!</h3></button>
-        <span className='mh-50'>Enemy strikes: {enemyDmg}</span>
+        <span className='mh-50'>Enemy strikes: <b><i>{enemyDmg}</i></b></span>
     </div>
     );
 };
