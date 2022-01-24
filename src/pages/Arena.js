@@ -724,8 +724,8 @@ const Arena = () => {
         if(Object.keys(arg)[0] === "health"){
             addHP=Object.values(arg)[0]
             console.log("HP",addHP)
-            if(userHP + addHP>player.health){
-                setUserHP(player.health)
+            if(userHP + addHP>player.health+advance.health){
+                setUserHP(player.health+advance.health)
             }else{
                 setUserHP(userHP + addHP)
             }
@@ -734,8 +734,8 @@ const Arena = () => {
         if(Object.keys(arg)[0] === "energy"){
             addEnergy=Object.values(arg)[0]
             console.log("Energy",addEnergy)
-            if(userEnergy + addEnergy>player.energy){
-                setUserEnergy(player.energy)
+            if(userEnergy + addEnergy>player.energy+advance.energy){
+                setUserEnergy(player.energy+advance.energy)
             }else{
                 setUserEnergy(userEnergy + addEnergy)
             }
